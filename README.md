@@ -45,8 +45,10 @@ We can also use method chaining to do all this in a single line, like so
 
 ## Methods
 
-1. `duration(millis)`  - **millis** is the animation duration in milliseconds.  
-2. `opacity(arg)` - **arg** is a float (0-1.0). The target opacity.
+1. `duration(int)`  - Takes int argument. The animation duration in milliseconds.  
+2. `opacity(float)` - Takes a float argument (0-1.0). The target opacity.
+3. `width(int)` - Takes an int argument. The target width in pixels.
+4. `height(int)` - Takes an int argument. The target height in pixels.
 
 
 ## License

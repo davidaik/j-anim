@@ -55,6 +55,24 @@ function jAnim(selectorOrEl) {
         return this;
     }
 
+    obj.width = function(to) {
+        this.animPropertyObjects.width = this.createAnimPropertyObject(
+                                                'width',
+                                                'px',
+                                                this.getCurrentPropValue('width'),
+                                                to);
+        return this;
+    }
+
+    obj.height = function(to) {
+        this.animPropertyObjects.height = this.createAnimPropertyObject(
+                                                'height',
+                                                'px',
+                                                this.getCurrentPropValue('height'),
+                                                to);
+        return this;
+    }
+
     obj.calculateFrame = function() {
         if(this.cancelled) {
             return;

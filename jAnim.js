@@ -46,6 +46,26 @@ function jAnim(selectorOrEl) {
         }
     }
 
+    obj.backgroundColor = function(to) {
+        // to must be type rgba(int, int, int, float)
+        function getRGBAComponents(rgbaString) {
+            // rgbaString ~ rgba(int, int, int, float)
+            // returns {r: 0, g: 0, b: 0, a: 0.5}
+            var components = rgbaString.replace(/[^\d,.]/g, '').split(',');
+            return {r: parseInt(components[0]), g: parseInt(components[1]), b: parseInt(components[2]), a: parseFloat(components[3])};
+        }
+        var from = getRGBAComponents(window.getComputedStyle(this.element).getPropertyValue('background-color'));
+        if(!from.a) from.a = 1;
+        to = getRGBAComponents(to);
+        if(!to.a) to.a = 1;
+        this.animPropertyObjects.backgroundColor = this.createAnimPropertyObject(
+                                                'background-color',
+                                                '',
+                                                from,
+                                                to);
+        return this;
+    }
+
     obj.opacity = function(to) {
         this.animPropertyObjects.opacity = this.createAnimPropertyObject(
                                                 'opacity',
@@ -85,8 +105,22 @@ function jAnim(selectorOrEl) {
             let easedFraction = this.ease(animatedFraction)
             if(animatedFraction < 1) {
                 this.cancelled = false;
-                propertyObj.currentValue = propertyObj.startValue
+                if(prop == 'backgroundColor') {
+                    /*
+                    Things are a little different for color properties.
+                    Iterate over the keys in propertyObj.currentValue which looks like {r: 0, g: 0, b: 0, a: 0}
+                    and update each value.
+                    */
+                    for(colorComponent in propertyObj.currentValue) {
+                        propertyObj.currentValue[colorComponent]
+                            = propertyObj.startValue[colorComponent]
+                                + ((propertyObj.endValue[colorComponent] - propertyObj.startValue[colorComponent])
+                                 * easedFraction);
+                    }
+                } else {
+                    propertyObj.currentValue = propertyObj.startValue
                                             + ((propertyObj.endValue - propertyObj.startValue) * easedFraction);
+                }
             } else {
                 propertyObj.currentValue = propertyObj.endValue;
             }
@@ -99,7 +133,14 @@ function jAnim(selectorOrEl) {
     }
 
     obj.applyValue = function(propObj) {
-        this.element.style[propObj.property] = propObj.currentValue + propObj.suffix;
+        if(propObj.property == 'background-color') {
+            this.element.style.backgroundColor = 'rgba(' + propObj.currentValue.r + ', '
+                                                    + propObj.currentValue.g + ', '
+                                                    + propObj.currentValue.b + ', '
+                                                    + propObj.currentValue.a + ')';
+        } else {
+            this.element.style[propObj.property] = propObj.currentValue + propObj.suffix;
+        }
     }
 
     obj.start = function() {

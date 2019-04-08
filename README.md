@@ -45,10 +45,13 @@ We can also use method chaining to do all this in a single line, like so
 
 ## Methods
 
-1. `duration(int)`  - Takes int argument. The animation duration in milliseconds.  
-2. `opacity(float)` - Takes a float argument (0-1.0). The target opacity.
-3. `width(int)` - Takes an int argument. The target width in pixels.
-4. `height(int)` - Takes an int argument. The target height in pixels.
+1. `duration(int)`  - arg is the animation duration in milliseconds.
+2. `backgroundColor(color)` - arg is an rgba() string, e.g. 'rgba(0, 0, 0, 0.5)' - the target background color.
+3. `opacity(float)` - arg is the target opacity.
+4. `width(int)` - arg is the target width in pixels.
+5. `height(int)` - arg is the target height in pixels.
+6. `translationX(int)` - arg is the target value for the *left* CSS property.
+7. `translationY(int)` - arg is the target value for the *top* CSS property.
 
 
 ## License

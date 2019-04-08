@@ -52,6 +52,8 @@ We can also use method chaining to do all this in a single line, like so
 5. `height(int)` - arg is the target height in pixels.
 6. `translationX(int)` - arg is the target value for the *left* CSS property.
 7. `translationY(int)` - arg is the target value for the *top* CSS property.
+8. `easing(easingFunction)` - arg is a string that matches any of the following:  
+    `linear`, `inQuad`, `outQuad`.
 
 
 ## License

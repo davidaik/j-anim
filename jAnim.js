@@ -3,7 +3,16 @@ function jAnim(selectorOrEl) {
     obj.easings = {
         linear: function(t) {
           return t;
-        }
+        },
+        inQuad: function(t) {
+            return t*t;
+        },
+        outQuad: function(t) {
+            return t * (2 - t);
+        },
+        inOutQuad: function(t) {
+            return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        },
       };
     obj.requestAnimationFrame = window.requestAnimationFrame.bind(window) ||
                         window.mozRequestAnimationFrame.bind(window) ||
@@ -25,8 +34,18 @@ function jAnim(selectorOrEl) {
     }
     obj.easing = function(e) {
         switch(e) {
-          case 'linear':
-            this.ease = this.easings.linear
+            case 'linear':
+                this.ease = this.easings.linear;
+                break;
+            case 'inQuad':
+                this.ease = this.easings.inQuad;
+                break;
+            case 'outQuad':
+                this.ease = this.easings.outQuad;
+                break;
+            case 'inOutQuad':
+                this.ease = this.easings.inOutQuad;
+                break;
         }
         return this;
     }

@@ -93,6 +93,24 @@ function jAnim(selectorOrEl) {
         return this;
     }
 
+    obj.translationX = function(to) {
+        this.animPropertyObjects.translationX = this.createAnimPropertyObject(
+                                                        'left',
+                                                        'px',
+                                                        this.getCurrentPropValue('left'),
+                                                        to);
+        return this;
+    }
+
+    obj.translationY = function(to) {
+        this.animPropertyObjects.translationY = this.createAnimPropertyObject(
+                                                        'top',
+                                                        'px',
+                                                        this.getCurrentPropValue('top'),
+                                                        to);
+        return this;
+    }
+
     obj.calculateFrame = function() {
         if(this.cancelled) {
             return;
